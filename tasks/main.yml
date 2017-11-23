@@ -6,6 +6,11 @@
       home: '{{ acme_home_dir }}'
       state: present
 
+- name: "Pre-installation task for acme.sh: Install socat"
+  apt:
+    name: socat
+    state: latest
+
 - name: "Tighten permissions on ACME homedir"
   file:
     path: '{{ acme_home_dir }}'
@@ -40,16 +45,11 @@
     state: link
   when: acme_symlink_to_local is defined
 
-- name: "Enable sudo nginx reload by letsencrypt"
-  template:
-    src: letsencrypt-restart-nginx.j2
-    dest: /etc/sudoers.d/20-letsencrypt-nginx-restart
-  when: acme_sudo_reload_nginx
-
-
-#- name: "Install .acme.sh"
-#  become_user: '{{ acme_user }}'
-#  become: yes
-#  shell: 'acme.sh --install --home {{ acme_data_dir }}'
-#  args:
-#    creates: '{{ acme_data_dir }}/.acme.sh'
+- name: "Install acme in {{ acme_install_dir }}"
+  shell: "acme.sh --install --home \"{{ acme_install_dir }}\""
+  args:
+    chdir: "{{ acme_home_dir }}"
+    creates: '{{ acme_install_dir }}/.acme.sh'
+  register: acme_install_output
+- debug:
+      var: acme_install_output.stdout_lines

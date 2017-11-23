@@ -5,6 +5,7 @@ acme_user: 'letsencrypt'
 # Location of datadir
 acme_home_dir: '/var/lib/acme'
 acme_data_dir: '/var/lib/acme/.acme.sh'
+acme_install_dir: '/var/lib/acme/data'
 
 # Location of directories
 acme_pki_dir: '/etc/pki/acme'
@@ -20,9 +21,8 @@ acme_well_known_dir_permissions: '0711'
 
 # Location of acme.sh
 acme_script: '/var/lib/acme/acme.sh'
+
 # Letsencrypt
 acme_script_url: "https://raw.githubusercontent.com/Neilpang/acme.sh/master/acme.sh"
 
 acme_symlink_to_local: '/usr/local/bin/acme.sh'
-
-acme_sudo_reload_nginx: True
