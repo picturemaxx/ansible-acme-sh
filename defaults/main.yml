@@ -6,6 +6,7 @@ acme_user: 'letsencrypt'
 acme_home_dir: '/var/lib/acme'
 acme_data_dir: '/var/lib/acme/.acme.sh'
 acme_install_dir: '/var/lib/acme/data'
+acme_log_file: '/var/log/acme.log'
 
 # Location of directories
 acme_pki_dir: '/etc/pki/acme'

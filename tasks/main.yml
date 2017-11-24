@@ -53,3 +53,45 @@
   register: acme_install_output
 - debug:
       var: acme_install_output.stdout_lines
+
+- name: "Create log file if not exists and set permissions"
+  copy:
+    content: ""
+    dest: "{{ acme_log_file }}"
+    force: no
+    owner: "www-data"
+    group: "www-data"
+    mode: 0644
+
+- name: "Change log file permissions"
+  file:
+    path: "{{ acme_log_file }}"
+    owner: "www-data"
+    group: "www-data"
+    state: touch
+    mode: 0644
+
+- name: "Change acme install folder permissions"
+  file:
+    path: "{{ acme_install_dir }}"
+    state: touch
+    owner: "www-data"
+    group: "www-data"
+    mode: "0711"
+    recurse: yes
+
+- name: "Change acme.sh script permissions"
+  file:
+    path: "{{ acme_install_dir }}/acme.sh"
+    state: touch
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: "Change acme main folder permissions"
+  file:
+    path: "{{ acme_home_dir }}"
+    state: touch
+    owner: '{{ acme_pki_dir_owner }}'
+    group: '{{ acme_pki_dir_group }}'
+    mode: "0711"
