@@ -74,7 +74,7 @@
 - name: "Change acme install folder permissions"
   file:
     path: "{{ acme_install_dir }}"
-    state: touch
+    state: directory
     owner: "www-data"
     group: "www-data"
     mode: "0711"
